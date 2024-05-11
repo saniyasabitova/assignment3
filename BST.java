@@ -1,5 +1,35 @@
 
-public class BST<K extends Comparable<K>,V> {
+
+import java.util.Iterator;
+import java.util.Stack;
+import java.util.WeakHashMap;
+
+public class BST<K extends Comparable<K>,V>{
+
+
+
+
+public void inOrder() {
+    Node n = root;
+    if (n == null) {
+        return;
+    }
+    Stack<Node> stack = new Stack();
+    while (!stack.empty() || n!=null) {
+        if (n != null) {
+            stack.push(n);
+            n = n.left;
+        } else {
+            if (stack.empty()) break;
+            n = stack.pop();
+            System.out.println("key "+n.key +"  " + "value "+ n.value);
+            n = n.right;
+        }
+    }
+}
+
+
+
     private class Node{
         private K key;
         private V value;
@@ -48,26 +78,49 @@ public class BST<K extends Comparable<K>,V> {
     public void put(K key, V val) {
         root = put(root, key, val);
     }
-    private Node put (Node n, K key, V val){
-        if ( n == null){
-            size++;
-            n = new Node(key,val);
-            return n;
-        }
-        else{
-           Node node = new Node(key,val);
-           int c = key.compareTo(n.key);
-           if(c>0){
-               n = put(n.right, key,val);
-           } else if (c<0) {
-             n = put(n.left, key,val);
-           }
-           else{
-               n.value = val;
-           }
-        }
-        return n;
+//    private Node put (Node n, K key, V val){
+//        if ( n == null){
+//            size++;
+//            n = new Node(key,val);
+//            return n;
+//        }
+//        else{
+//           Node node = new Node(key,val);
+//           int c = key.compareTo(n.key);
+//           if(c>0){
+//               n = put(n.right, key,val);
+//           } else if (c<0) {
+//             n = put(n.left, key,val);
+//           }
+//          else {
+//    n.value = val;
+//    return n;
+//}
+//
+//        }
+//        return n;
+//    }
+
+    private Node put(Node n, K key, V val) {
+    if (n == null) {
+        size++;
+        return new Node(key, val);
     }
+
+    int cmp = key.compareTo(n.key);
+    if (cmp > 0) {
+        n.right = put(n.right, key, val);
+    } else if (cmp < 0) {
+        n.left = put(n.left, key, val);
+    } else {
+        // Update value if key already exists
+        n.value = val;
+        return n; // Return the updated node
+    }
+
+    return n;
+}
+
 
    public V get(K key) {
     return get(root, key);

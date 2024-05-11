@@ -1,9 +1,11 @@
 import java.util.*;
 
 
+
 public class Main {
     public static void main(String[] args) {
-        MyHashTable<String, Integer> h =new MyHashTable<String,Integer>(5);
+        //just for checking
+        MyHashTable<String, Integer> h = new MyHashTable<String, Integer>(5);
         h.put("Saniya", 8);
         h.put("Sabina", 16);
         h.put("Adiya", 10);
@@ -11,8 +13,8 @@ public class Main {
         System.out.println( h.get("Dariya"));
 
         System.out.println(h.getkey(31));
-
-
+//just for checking
+//testing: number of elements in each linked list
         Random random = new Random();
 
         MyHashTable<MyTestingClass, Student> table = new MyHashTable<>(1000);
@@ -26,5 +28,18 @@ public class Main {
             System.out.println(size);
         }
 
-    }
-}
+        //testing BST and inOrder method printing each value and key
+        BST tree = new BST();
+        tree.put(90, "Dilnaz");
+        tree.put(28, "Saniya");
+        tree.put(78, "Alnur");
+        tree.put(41, "Assemai");
+        tree.put(54, "Angelina");
+        //testing put and get methods
+        Object o = tree.get(41);
+        System.out.println(o);
+        tree.inOrder();
+
+
+
+    }}
